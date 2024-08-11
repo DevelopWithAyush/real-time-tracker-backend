@@ -4,18 +4,27 @@ const port = 5000;
 import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
+import dotenv from "dotenv";
+
+
+
+
+dotenv.config({
+  path: "./.env",
+});
+console.log(process.env.REACT_APP_SERVER)
 
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://real-time-tracker-frontend.vercel.app/",
+    origin: process.env.REACT_APP_SERVER,
     methods: ["GET", "POST"],
     credentials: true,
   },
 });
 app.use(
     cors({
-      origin: "https://real-time-tracker-frontend.vercel.app/",
+      origin: process.env.REACT_APP_SERVER,
     })
 );
 
