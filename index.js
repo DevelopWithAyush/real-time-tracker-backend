@@ -8,14 +8,14 @@ import cors from "cors";
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://real-time-tracker-frontend.vercel.app",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
     credentials: true,
   },
 });
 app.use(
     cors({
-        origin: "https://real-time-tracker-frontend.vercel.app",
+      origin: "http://localhost:3000",
     })
 );
 
@@ -29,7 +29,7 @@ io.on("connection", (socket) => {
 
     socket.on("send-location", (data) => {
       console.log(data.latitude, data.longitude)
-        io.emit("recive-location", { id: socket.id, ...data })
+      io.emit("recive-location", { id: socket.id, ...data })
     });
 
   socket.on("disconnect", () => {
